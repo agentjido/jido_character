@@ -5,6 +5,7 @@ defmodule JidoCharacter.Core do
   """
 
   alias JidoCharacter
+  alias JidoCharacter.Composer
 
   @persist_adapter Application.compile_env(
                      :jido_character,
@@ -98,6 +99,17 @@ defmodule JidoCharacter.Core do
     else
       {:error, %Jason.DecodeError{}} = error -> error
       %{valid?: false} = changeset -> {:error, changeset}
+    end
+  end
+
+  def compose(%JidoCharacter{} = character, opts \\ []) do
+    with {:ok, identity} <- Composer.compose(character.identity, opts) do
+      #  {:ok, personality} <- Composer.compose(character.personality, opts) do
+      composed = """
+      #{identity}
+      """
+
+      {:ok, String.trim(composed)}
     end
   end
 

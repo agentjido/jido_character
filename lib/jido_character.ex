@@ -7,7 +7,9 @@ defmodule JidoCharacter do
   use TypedEctoSchema
   import Ecto.Changeset
   import JidoCharacter.Helpers
+
   alias JidoCharacter.Identity
+  alias JidoCharacter.Personality
 
   @type character :: t()
   @type changeset :: Ecto.Changeset.t()
@@ -22,6 +24,13 @@ defmodule JidoCharacter do
     field(:description, :string)
 
     embeds_one(:identity, Identity, on_replace: :update)
+    embeds_one(:personality, Personality, on_replace: :update)
+    # embeds_one(:cognitive, Cognitive, on_replace: :update)
+    # embeds_one(:evolution, Evolution, on_replace: :update)
+    # embeds_one(:world, World, on_replace: :update)
+    # embeds_one(:config, Config, on_replace: :update)
+    # embeds_one(:economic, Economic, on_replace: :update)
+    # embeds_one(:identity_system, IdentitySystem, on_replace: :update)
 
     field(:created_at, :utc_datetime_usec)
     field(:updated_at, :utc_datetime_usec)
@@ -50,7 +59,14 @@ defmodule JidoCharacter do
       description: nil,
       created_at: now,
       updated_at: now,
-      identity: Identity.template()
+      identity: Identity.template(),
+      personality: Personality.template()
+      # cognitive: Cognitive.template(),
+      # evolution: Evolution.template(),
+      # world: World.template(),
+      # config: Config.template(),
+      # economic: Economic.template(),
+      # identity_system: IdentitySystem.template()
     }
 
     struct(base, attrs)
@@ -66,4 +82,5 @@ defmodule JidoCharacter do
   defdelegate to_json(character), to: JidoCharacter.Core
   defdelegate from_json(json), to: JidoCharacter.Core
   defdelegate persist_adapter(), to: JidoCharacter.Core
+  defdelegate compose(character, opts \\ []), to: JidoCharacter.Core
 end

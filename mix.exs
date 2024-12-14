@@ -24,6 +24,7 @@ defmodule JidoCharacter.MixProject do
   defp deps do
     [
       {:ecto, "~> 3.12"},
+      {:ecto_enum, "~> 1.4"},
       {:elixir_uuid, "~> 1.2"},
       {:faker, "~> 0.18.0"},
       {:jason, "~> 1.4"},

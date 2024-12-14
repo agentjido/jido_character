@@ -85,6 +85,20 @@ defmodule JidoCharacter.Helpers do
     end)
   end
 
+  def random_sample(list, count \\ 1) when is_list(list) do
+    list
+    |> Enum.shuffle()
+    |> Enum.take(count)
+  end
+
+  def add_section_header(title, content) when byte_size(content) > 0 do
+    """
+    # #{title}
+    #{content}
+    """
+  end
+
+  def add_section_header(_, _), do: ""
   # Private Helpers
 
   defp flatten_error_messages(errors) when is_map(errors) do

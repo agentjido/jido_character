@@ -137,3 +137,36 @@ defmodule JidoCharacter.Identity do
 
   def get_interests(_), do: []
 end
+
+defimpl JidoCharacter.Composer, for: JidoCharacter.Identity do
+  import JidoCharacter.Helpers
+  alias JidoCharacter.Identity
+
+  def compose(%Identity{base: base, style: style, profile: profile}, _opts) do
+    profile_text = profile_to_text(profile)
+    style_text = style_to_text(style)
+
+    composed = """
+    #{add_section_header("Identity", base_to_text(base))}
+    #{if style_text != "", do: add_section_header("Style", style_text)}
+    #{if profile_text != "", do: add_section_header("Profile", profile_text)}
+    """
+
+    {:ok, String.trim(composed)}
+  end
+
+  defp base_to_text(%{name: name} = base) when not is_nil(name) do
+    "#{name} is #{base.description}"
+  end
+
+  defp style_to_text(%{expressions: expressions}) when length(expressions) > 0 do
+    expressions
+    |> random_sample(3)
+    |> Enum.join("\n")
+  end
+
+  defp style_to_text(_), do: ""
+
+  defp profile_to_text(%{status: status}) when not is_nil(status), do: status
+  defp profile_to_text(_), do: ""
+end

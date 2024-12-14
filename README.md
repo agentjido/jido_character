@@ -1,6 +1,6 @@
-# JidoCharacter
+# Jido Character
 
-**TODO: Add description**
+Character schema and API for Jido. 
 
 ## Installation
 
@@ -15,7 +15,18 @@ def deps do
 end
 ```
 
+## Usage
+
+```elixir
+character = JidoCharacter.new()
+
+character = JidoCharacter.update(character, %{name: "John Doe"})
+
+character = JidoCharacter.update(character, %{identity: %{username: "johndoe"}})
+```
+
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at <https://hexdocs.pm/jido_character>.
+
 
