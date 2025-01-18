@@ -30,6 +30,14 @@ defmodule JidoCharacter.Persistence.Memory do
     }
   end
 
+  @doc """
+  Clears all data from the in-memory storage.
+  """
+  @spec clear() :: :ok
+  def clear do
+    Agent.update(@agent_name, fn _state -> %{} end)
+  end
+
   @impl true
   @doc """
   Saves a character to the in-memory storage.

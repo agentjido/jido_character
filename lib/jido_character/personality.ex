@@ -15,10 +15,10 @@ defmodule JidoCharacter.Personality do
   @derive {Jason.Encoder, except: []}
   @primary_key false
   typed_embedded_schema do
-    embeds_one(:traits, Traits)
-    embeds_one(:narrative, Narrative)
-    embeds_one(:behavior, Behavior)
-    embeds_one(:expression, Expression)
+    embeds_one(:traits, Traits, on_replace: :update)
+    embeds_one(:narrative, Narrative, on_replace: :update)
+    embeds_one(:behavior, Behavior, on_replace: :update)
+    embeds_one(:expression, Expression, on_replace: :update)
   end
 
   def changeset(personality \\ %__MODULE__{}, attrs) do

@@ -23,9 +23,9 @@ defmodule JidoCharacter.Identity do
     field(:interests, {:array, :string}, default: [])
 
     # New embedded schemas
-    embeds_one(:base, Base)
-    embeds_one(:style, Style)
-    embeds_one(:profile, Profile)
+    embeds_one(:base, Base, on_replace: :update)
+    embeds_one(:style, Style, on_replace: :update)
+    embeds_one(:profile, Profile, on_replace: :update)
   end
 
   def changeset(identity \\ %__MODULE__{}, attrs) do

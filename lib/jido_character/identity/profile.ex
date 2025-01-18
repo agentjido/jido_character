@@ -99,7 +99,7 @@ defmodule JidoCharacter.Identity.Profile do
 
   defp validate_visibility_settings(changeset) do
     validate_change(changeset, :visibility_settings, fn _, settings ->
-      required_fields = ["profile_visible", "achievements_visible", "social_links_visible"]
+      required_fields = [:profile_visible, :achievements_visible, :social_links_visible]
 
       if is_map(settings) && Enum.all?(required_fields, &Map.has_key?(settings, &1)) do
         []
@@ -121,9 +121,9 @@ defmodule JidoCharacter.Identity.Profile do
       public_stats: %{},
       last_active_at: DateTime.utc_now(),
       visibility_settings: %{
-        "profile_visible" => true,
-        "achievements_visible" => true,
-        "social_links_visible" => true
+        profile_visible: true,
+        achievements_visible: true,
+        social_links_visible: true
       }
     }
     |> Map.merge(attrs)

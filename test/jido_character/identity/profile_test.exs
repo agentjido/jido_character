@@ -91,9 +91,9 @@ defmodule JidoCharacter.Identity.ProfileTest do
         public_stats: %{"followers" => 100},
         last_active_at: DateTime.utc_now(),
         visibility_settings: %{
-          "profile_visible" => true,
-          "achievements_visible" => true,
-          "social_links_visible" => true
+          profile_visible: true,
+          achievements_visible: true,
+          social_links_visible: true
         }
       }
 
@@ -115,9 +115,9 @@ defmodule JidoCharacter.Identity.ProfileTest do
       assert %DateTime{} = profile.last_active_at
 
       assert profile.visibility_settings == %{
-               "profile_visible" => true,
-               "achievements_visible" => true,
-               "social_links_visible" => true
+               profile_visible: true,
+               achievements_visible: true,
+               social_links_visible: true
              }
     end
 
@@ -126,16 +126,16 @@ defmodule JidoCharacter.Identity.ProfileTest do
         status_message: "Custom status",
         occupation: "Custom occupation",
         visibility_settings: %{
-          "profile_visible" => false,
-          "achievements_visible" => true,
-          "social_links_visible" => true
+          profile_visible: false,
+          achievements_visible: true,
+          social_links_visible: true
         }
       }
 
       profile = Profile.template(attrs)
       assert profile.status_message == "Custom status"
       assert profile.occupation == "Custom occupation"
-      assert profile.visibility_settings["profile_visible"] == false
+      assert profile.visibility_settings.profile_visible == false
       assert profile.achievements == []
       assert profile.social_links == []
     end

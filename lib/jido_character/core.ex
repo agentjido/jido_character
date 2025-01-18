@@ -16,10 +16,12 @@ defmodule JidoCharacter.Core do
   @type character :: JidoCharacter.t()
   @type changeset :: JidoCharacter.changeset()
   @type error :: JidoCharacter.error()
+
   @doc "Creates a new character with optional ID"
   @spec new(String.t() | nil) :: {:ok, character()} | error()
   def new(id \\ nil) do
     id = id || UUID.uuid4()
+    Process.sleep(1)
     now = DateTime.utc_now()
 
     JidoCharacter.template(%{
@@ -38,7 +40,11 @@ defmodule JidoCharacter.Core do
   @doc "Updates a character with new attributes"
   @spec update(character(), map()) :: {:ok, character()} | error()
   def update(%JidoCharacter{} = character, attrs) when is_map(attrs) do
-    attrs = Map.put(attrs, :updated_at, DateTime.utc_now())
+    # Ensure we get a fresh timestamp that's greater than the current one
+    Process.sleep(1)
+    new_timestamp = DateTime.utc_now()
+
+    attrs = Map.put(attrs, :updated_at, new_timestamp)
 
     character
     |> JidoCharacter.changeset(attrs)
@@ -54,11 +60,11 @@ defmodule JidoCharacter.Core do
   def clone(%JidoCharacter{} = character, new_id) do
     attrs = %{
       id: new_id,
-      name: character.name,
-      description: character.description,
       created_at: DateTime.utc_now(),
       updated_at: DateTime.utc_now(),
-      identity: character.identity |> Map.from_struct()
+      identity: character.identity |> Map.from_struct(),
+      personality: character.personality |> Map.from_struct(),
+      soulscript: character.soulscript |> Map.from_struct()
     }
 
     JidoCharacter.template(attrs)
@@ -89,11 +95,19 @@ defmodule JidoCharacter.Core do
   def from_json(json) when is_binary(json) do
     with {:ok, decoded} <- Jason.decode(json),
          # Convert string keys to atoms for embedded schemas
-         decoded <- Map.new(decoded, fn {k, v} -> {String.to_existing_atom(k), v} end),
+         decoded <- atomize_keys(decoded),
          # Create a new template with the decoded data
-         character <- JidoCharacter.template(decoded),
+         character <- JidoCharacter.template(),
          # Apply changes through changeset
-         changeset <- JidoCharacter.changeset(character, %{}),
+         changeset <-
+           JidoCharacter.changeset(character, %{
+             id: decoded[:id],
+             created_at: parse_datetime(decoded[:created_at]),
+             updated_at: parse_datetime(decoded[:updated_at]),
+             identity: decoded[:identity],
+             personality: decoded[:personality],
+             soulscript: decoded[:soulscript]
+           }),
          %{valid?: true} <- changeset do
       {:ok, Ecto.Changeset.apply_changes(changeset)}
     else
@@ -124,6 +138,27 @@ defmodule JidoCharacter.Core do
 
       invalid_changeset ->
         {:error, invalid_changeset}
+    end
+  end
+
+  # WARNING: This is potentially dangerous as it creates atoms at runtime.
+  # In a production system, you should use a whitelist of allowed keys.
+  defp atomize_keys(map) when is_map(map) do
+    Map.new(map, fn
+      {key, value} when is_map(value) -> {String.to_atom(key), atomize_keys(value)}
+      {key, value} when is_list(value) -> {String.to_atom(key), Enum.map(value, &atomize_keys/1)}
+      {key, value} -> {String.to_atom(key), value}
+    end)
+  end
+
+  defp atomize_keys(value), do: value
+
+  defp parse_datetime(nil), do: nil
+
+  defp parse_datetime(str) when is_binary(str) do
+    case DateTime.from_iso8601(str) do
+      {:ok, dt, _} -> dt
+      _ -> nil
     end
   end
 

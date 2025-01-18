@@ -1,17 +1,11 @@
 defmodule JidoCharacterTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case, async: false
   doctest JidoCharacter
 
   alias JidoCharacter
 
-  # Setup block to configure test environment and start Memory adapter
   setup do
-    # Configure the application to use Memory adapter
-    :ok = Application.put_env(:jido_character, :persist_adapter, JidoCharacter.Persistence.Memory)
-
-    # Start a fresh Memory adapter for each test
-    start_supervised!(JidoCharacter.Persistence.Memory)
-
+    JidoCharacter.Persistence.Memory.clear()
     :ok
   end
 
@@ -22,8 +16,6 @@ defmodule JidoCharacterTest do
       assert %DateTime{} = character.created_at
       assert %DateTime{} = character.updated_at
       assert character.created_at == character.updated_at
-      assert is_nil(character.name)
-      assert is_nil(character.description)
     end
 
     test "creates a new character with provided id" do
@@ -49,26 +41,32 @@ defmodule JidoCharacterTest do
   describe "update/2" do
     test "updates character attributes" do
       {:ok, character} = JidoCharacter.new()
-      # Ensure timestamp difference
+      original_updated_at = character.updated_at
+
+      # Add a small delay to ensure timestamps are different
       Process.sleep(1)
 
       new_attrs = %{
-        name: "Test Character",
-        description: "A character for testing purposes"
+        identity: %{
+          username: "test_user",
+          display_name: "Test Character"
+        }
       }
 
       assert {:ok, updated} = JidoCharacter.update(character, new_attrs)
-      assert updated.name == "Test Character"
-      assert updated.description == "A character for testing purposes"
-      assert DateTime.compare(updated.updated_at, character.updated_at) == :gt
+      assert updated.identity.username == "test_user"
+      assert updated.identity.display_name == "Test Character"
+      assert DateTime.compare(updated.updated_at, original_updated_at) == :gt
     end
 
     test "validates updates" do
       {:ok, character} = JidoCharacter.new()
 
       invalid_attrs = %{
-        # Assuming there's a max length validation
-        name: String.duplicate("a", 257)
+        identity: %{
+          # Too long username
+          username: String.duplicate("a", 257)
+        }
       }
 
       assert {:error, changeset} = JidoCharacter.update(character, invalid_attrs)
@@ -90,15 +88,17 @@ defmodule JidoCharacterTest do
 
       {:ok, original} =
         JidoCharacter.update(original, %{
-          name: "Original Character",
-          description: "This is the original character"
+          identity: %{
+            username: "original_user",
+            display_name: "Original Character"
+          }
         })
 
       new_id = "cloned-123"
       assert {:ok, cloned} = JidoCharacter.clone(original, new_id)
       assert cloned.id == new_id
-      assert cloned.name == original.name
-      assert cloned.description == original.description
+      assert cloned.identity.username == original.identity.username
+      assert cloned.identity.display_name == original.identity.display_name
       assert DateTime.compare(cloned.created_at, original.created_at) == :gt
     end
   end
@@ -121,8 +121,10 @@ defmodule JidoCharacterTest do
       {:ok, original} = JidoCharacter.new()
 
       new_attrs = %{
-        name: "JSON Test Character",
-        description: "A character for testing JSON serialization"
+        identity: %{
+          username: "json_test_user",
+          display_name: "JSON Test Character"
+        }
       }
 
       {:ok, original} = JidoCharacter.update(original, new_attrs)
@@ -130,23 +132,12 @@ defmodule JidoCharacterTest do
       assert {:ok, json} = JidoCharacter.to_json(original)
       assert {:ok, decoded} = JidoCharacter.from_json(json)
       assert decoded.id == original.id
-      assert decoded.name == original.name
-      assert decoded.description == original.description
+      assert decoded.identity.username == original.identity.username
+      assert decoded.identity.display_name == original.identity.display_name
     end
 
     test "handles invalid json" do
       assert {:error, %Jason.DecodeError{}} = JidoCharacter.from_json("invalid json")
     end
   end
-
-  # Property-based tests could be added here using StreamData
-  # Example structure for future implementation:
-  #
-  # property "character maintains integrity through json roundtrip" do
-  #   check all character <- character_generator() do
-  #     {:ok, json} = JidoCharacter.to_json(character)
-  #     {:ok, decoded} = JidoCharacter.from_json(json)
-  #     assert character == decoded
-  #   end
-  # end
 end

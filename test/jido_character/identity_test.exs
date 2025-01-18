@@ -3,8 +3,6 @@ defmodule JidoCharacter.IdentityTest do
   alias JidoCharacter.Identity
 
   setup do
-    :ok = Application.put_env(:jido_character, :persist_adapter, JidoCharacter.Persistence.Memory)
-    start_supervised!(JidoCharacter.Persistence.Memory)
     {:ok, character} = create_character_with_identity()
     %{character: character}
   end

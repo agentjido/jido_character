@@ -41,7 +41,7 @@ defmodule JidoCharacter.MixProject do
   # Define aliases
   defp aliases do
     [
-      test: ["test --trace"]
+      # test: ["test --trace"]
     ]
   end
 end
