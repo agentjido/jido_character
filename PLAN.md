@@ -1,6 +1,6 @@
 Core Implementation
 
-Feature: JidoCharacterExpansions {
+Feature: Jido.CharacterExpansions {
 What:
 - “Extend the current JIDO character module to incorporate new submodules (Cognitive, Evolution, World, Economics, IdentitySystem) as described in DATA_PLAN.md”
 - “Maintain immutability semantics by returning new character structs upon every modification”
@@ -10,7 +10,7 @@ What:
 
 Boundaries:
 - “Character data is immutable: all updates return a new character struct”
-- “New submodules must be embedded or referenced in the top-level JidoCharacter schema”
+- “New submodules must be embedded or referenced in the top-level Jido.Character schema”
 - “Must maintain existing SoulScript compliance and seamlessly import/export SoulScript data”
 - “All expansions must pass newly added ExUnit tests before merging”
 - “Adapters must provide consistent storage and retrieval of expanded character data”
@@ -19,7 +19,7 @@ Boundaries:
 Success:
 - “Cognitive, Evolution, World, Economics, and IdentitySystem submodules exist with typed embedded schemas”
 - “Clear TDD approach with separate test files for each new submodule”
-- “JidoCharacter updates do not mutate existing data in place”
+- “Jido.Character updates do not mutate existing data in place”
 - “Persistence adapters can store and retrieve extended character data”
 - “Characters can evolve over time; tests confirm version increments or time-based changes”
 - “All test suites and submodule tests pass consistently”
@@ -42,16 +42,16 @@ Proposed Files/Modules
 	5.	test/jido_character/cognitive_test.exs and/or sub-tests for each sub-structure
 
 Data Structures & Fields
-	•	JidoCharacter.Cognitive
+	•	Jido.Character.Cognitive
 
-defmodule JidoCharacter.Cognitive do
+defmodule Jido.Character.Cognitive do
   use TypedEctoSchema
   import Ecto.Changeset
 
   typed_embedded_schema do
-    embeds_many :memories, JidoCharacter.Cognitive.Memory
-    embeds_many :knowledge, JidoCharacter.Cognitive.Knowledge
-    embeds_one :emotional, JidoCharacter.Cognitive.Emotional
+    embeds_many :memories, Jido.Character.Cognitive.Memory
+    embeds_many :knowledge, Jido.Character.Cognitive.Knowledge
+    embeds_one :emotional, Jido.Character.Cognitive.Emotional
   end
 
   def changeset(cognitive, attrs) do
@@ -66,7 +66,7 @@ end
 
 	•	Memory
 
-defmodule JidoCharacter.Cognitive.Memory do
+defmodule Jido.Character.Cognitive.Memory do
   use TypedEctoSchema
   import Ecto.Changeset
 
@@ -86,7 +86,7 @@ end
 
 	•	Knowledge
 
-defmodule JidoCharacter.Cognitive.Knowledge do
+defmodule Jido.Character.Cognitive.Knowledge do
   use TypedEctoSchema
   import Ecto.Changeset
 
@@ -107,7 +107,7 @@ end
 
 	•	Emotional
 
-defmodule JidoCharacter.Cognitive.Emotional do
+defmodule Jido.Character.Cognitive.Emotional do
   use TypedEctoSchema
   import Ecto.Changeset
 
@@ -126,13 +126,13 @@ end
 
 
 
-Integration into JidoCharacter
+Integration into Jido.Character
 	•	In lib/jido_character.ex:
 
 typed_embedded_schema do
   # existing fields
 
-  embeds_one :cognitive, JidoCharacter.Cognitive, on_replace: :update
+  embeds_one :cognitive, Jido.Character.Cognitive, on_replace: :update
   # ...
 end
 
@@ -168,14 +168,14 @@ Proposed Files/Modules
 Data Structures
 	•	Evolution
 
-defmodule JidoCharacter.Evolution do
+defmodule Jido.Character.Evolution do
   use TypedEctoSchema
   import Ecto.Changeset
 
   typed_embedded_schema do
-    embeds_one :temporal_state, JidoCharacter.Evolution.TemporalState
-    embeds_one :growth_system, JidoCharacter.Evolution.GrowthSystem
-    embeds_many :history, JidoCharacter.Evolution.History
+    embeds_one :temporal_state, Jido.Character.Evolution.TemporalState
+    embeds_one :growth_system, Jido.Character.Evolution.GrowthSystem
+    embeds_many :history, Jido.Character.Evolution.History
   end
 
   def changeset(evolution, attrs) do
@@ -190,7 +190,7 @@ end
 
 	•	TemporalState
 
-defmodule JidoCharacter.Evolution.TemporalState do
+defmodule Jido.Character.Evolution.TemporalState do
   use TypedEctoSchema
   import Ecto.Changeset
 
@@ -210,7 +210,7 @@ end
 
 	•	GrowthSystem
 
-defmodule JidoCharacter.Evolution.GrowthSystem do
+defmodule Jido.Character.Evolution.GrowthSystem do
   use TypedEctoSchema
   import Ecto.Changeset
 
@@ -228,7 +228,7 @@ end
 
 	•	History
 
-defmodule JidoCharacter.Evolution.History do
+defmodule Jido.Character.Evolution.History do
   use TypedEctoSchema
   import Ecto.Changeset
 
@@ -247,11 +247,11 @@ end
 
 
 
-Integration into JidoCharacter
+Integration into Jido.Character
 
 typed_embedded_schema do
   # existing fields
-  embeds_one :evolution, JidoCharacter.Evolution, on_replace: :update
+  embeds_one :evolution, Jido.Character.Evolution, on_replace: :update
 end
 
 def changeset(character, attrs) do
@@ -283,14 +283,14 @@ Proposed Files/Modules
 
 Data Structures
 
-defmodule JidoCharacter.World do
+defmodule Jido.Character.World do
   use TypedEctoSchema
   import Ecto.Changeset
 
   typed_embedded_schema do
-    embeds_one :context, JidoCharacter.World.Context
-    embeds_many :social, JidoCharacter.World.Social
-    embeds_one :cultural, JidoCharacter.World.Cultural
+    embeds_one :context, Jido.Character.World.Context
+    embeds_many :social, Jido.Character.World.Social
+    embeds_one :cultural, Jido.Character.World.Cultural
   end
 
   def changeset(world, attrs) do
@@ -304,7 +304,7 @@ end
 
 	•	Context
 
-defmodule JidoCharacter.World.Context do
+defmodule Jido.Character.World.Context do
   use TypedEctoSchema
   import Ecto.Changeset
 
@@ -323,7 +323,7 @@ end
 
 	•	Social
 
-defmodule JidoCharacter.World.Social do
+defmodule Jido.Character.World.Social do
   use TypedEctoSchema
   import Ecto.Changeset
 
@@ -343,7 +343,7 @@ end
 
 	•	Cultural
 
-defmodule JidoCharacter.World.Cultural do
+defmodule Jido.Character.World.Cultural do
   use TypedEctoSchema
   import Ecto.Changeset
 
@@ -360,11 +360,11 @@ end
 
 
 
-Integration into JidoCharacter
+Integration into Jido.Character
 
 typed_embedded_schema do
   # ...
-  embeds_one :world, JidoCharacter.World, on_replace: :update
+  embeds_one :world, Jido.Character.World, on_replace: :update
 end
 
 def changeset(character, attrs) do
@@ -394,16 +394,16 @@ Proposed Files/Modules
 
 Data Structures
 
-defmodule JidoCharacter.Economics do
+defmodule Jido.Character.Economics do
   use TypedEctoSchema
   import Ecto.Changeset
 
   typed_embedded_schema do
-    embeds_many :wallets, JidoCharacter.Economics.Wallet
-    embeds_many :assets, JidoCharacter.Economics.Assets
-    embeds_many :income, JidoCharacter.Economics.Income
-    embeds_many :transactions, JidoCharacter.Economics.Transactions
-    embeds_one :economic_status, JidoCharacter.Economics.EconomicStatus
+    embeds_many :wallets, Jido.Character.Economics.Wallet
+    embeds_many :assets, Jido.Character.Economics.Assets
+    embeds_many :income, Jido.Character.Economics.Income
+    embeds_many :transactions, Jido.Character.Economics.Transactions
+    embeds_one :economic_status, Jido.Character.Economics.EconomicStatus
   end
 
   def changeset(econ, attrs) do
@@ -418,7 +418,7 @@ defmodule JidoCharacter.Economics do
 end
 
 Integration & TDD
-	•	As before, embed :economics in JidoCharacter.
+	•	As before, embed :economics in Jido.Character.
 	•	Write tests covering additions to wallets, posting transactions, updating derived economic_status.
 
 5. Add IdentitySystem Submodule
@@ -442,11 +442,11 @@ Memory Adapter (in-memory)
 Already implemented. Verify it can handle the new embedded fields (it should, as :erlang.term_to_binary/1 can handle any updated struct).
 
 ETS Adapter
-	•	Confirm that storing the updated JidoCharacter with embedded submodules works.
+	•	Confirm that storing the updated Jido.Character with embedded submodules works.
 	•	Potentially no code change needed if you’re storing the entire struct in ETS, but confirm the :ets.insert usage can handle changes in data shape.
 
 Ecto Adapter
-	•	If you want to store the entire JidoCharacter in a JSONB column, add migrations to add a character_data (JSONB) field in your table.
+	•	If you want to store the entire Jido.Character in a JSONB column, add migrations to add a character_data (JSONB) field in your table.
 	•	Then you can define a DB-backed schema referencing that column, e.g.:
 
 schema "characters" do
@@ -459,14 +459,14 @@ end
 
 Potential Implementation
 
-defmodule JidoCharacter.Persistence.Postgres do
-  @behaviour JidoCharacter.Persistence.Adapter
+defmodule Jido.Character.Persistence.Postgres do
+  @behaviour Jido.Character.Persistence.Adapter
 
-  alias JidoCharacter
+  alias Jido.Character
   alias MyApp.Repo
   alias MyApp.CharacterRecord
 
-  def save(%JidoCharacter{} = char) do
+  def save(%Jido.Character{} = char) do
     record_attrs = %{character_data: Jason.encode!(char)}
     changeset = Ecto.Changeset.change(%CharacterRecord{}, record_attrs)
 
@@ -481,7 +481,7 @@ defmodule JidoCharacter.Persistence.Postgres do
       nil -> {:error, :not_found}
       record ->
         with {:ok, data} <- Jason.decode(record.character_data),
-             {:ok, char} <- JidoCharacter.from_json(Jason.encode!(data)) do
+             {:ok, char} <- Jido.Character.from_json(Jason.encode!(data)) do
           {:ok, char}
         else
           _ -> {:error, :invalid_data}
@@ -498,25 +498,25 @@ end
 	1.	Every “update” function (e.g. Cognitive.add_memory(character, memory_attrs)) should:
 	•	Retrieve the existing character.cognitive
 	•	Build a changeset with the new memory
-	•	Apply changes, produce a new %JidoCharacter{...}
+	•	Apply changes, produce a new %Jido.Character{...}
 	•	Return the new version
 Example pattern:
 
-def add_memory(%JidoCharacter{} = char, memory_attrs) do
+def add_memory(%Jido.Character{} = char, memory_attrs) do
   new_memories = [memory_attrs | char.cognitive.memories]
 
   new_cognitive =
     char.cognitive
-    |> JidoCharacter.Cognitive.changeset(%{memories: new_memories})
+    |> Jido.Character.Cognitive.changeset(%{memories: new_memories})
     |> Ecto.Changeset.apply_changes()
 
-  JidoCharacter.update(char, %{cognitive: new_cognitive})
+  Jido.Character.update(char, %{cognitive: new_cognitive})
 end
 
 
 	2.	Versioning or “Evolution increment”
-	•	If you want an auto-incrementing version, you can store it in JidoCharacter.Evolution.TemporalState or in the top-level character.version.
-	•	Each time you do JidoCharacter.update/2, increment or adjust the version. This ensures prior states remain distinct.
+	•	If you want an auto-incrementing version, you can store it in Jido.Character.Evolution.TemporalState or in the top-level character.version.
+	•	Each time you do Jido.Character.update/2, increment or adjust the version. This ensures prior states remain distinct.
 	3.	Testing
 	•	Test that repeated calls produce new structures with updated timestamps or version fields.
 	•	Confirm old references remain intact.
@@ -532,7 +532,7 @@ end
 	•	Each submodule’s test file defines the public API you plan to expose (e.g., add_memory/2, log_event/2, update_context/2).
 	•	Confirm immutability by comparing old struct references to new ones.
 	3.	Implement Minimal Code
-	•	Add submodules, fields, changeset logic, plus an updating function in JidoCharacter.Core or relevant module.
+	•	Add submodules, fields, changeset logic, plus an updating function in Jido.Character.Core or relevant module.
 	•	Return new character struct from each function.
 	4.	Iterate
 	•	Expand tests for boundary conditions, errors, larger sets (e.g., 1000 memories).
@@ -542,23 +542,23 @@ end
 
 9. Summary of Architectural Decisions
 	1.	Encapsulation
-	•	Each domain area (Cognitive, Evolution, World, Economics, IdentitySystem) is its own embedded schema under JidoCharacter.
+	•	Each domain area (Cognitive, Evolution, World, Economics, IdentitySystem) is its own embedded schema under Jido.Character.
 	•	Substructures are further embedded (e.g., Cognitive.Memory).
 	2.	Immutability
-	•	All modifications go through the main JidoCharacter.update/2 pipeline, returning a new struct.
+	•	All modifications go through the main Jido.Character.update/2 pipeline, returning a new struct.
 	3.	Persistence
-	•	Memory, ETS, and JSONB-based Ecto solutions each store/retrieve the entire JidoCharacter struct.
+	•	Memory, ETS, and JSONB-based Ecto solutions each store/retrieve the entire Jido.Character struct.
 	•	Minimal changes needed beyond verifying larger data shape.
 	4.	Evolution
 	•	The Evolution module provides versioning or historical logs. This can be optional or required depending on your domain needs.
 	5.	Integration with SoulScript
-	•	Keep existing soulscript field in JidoCharacter. The new expansions do not conflict with or override SoulScript structure but can be serialized alongside it.
+	•	Keep existing soulscript field in Jido.Character. The new expansions do not conflict with or override SoulScript structure but can be serialized alongside it.
 
 Conclusion
 
 This plan extends your JIDO character system with additional submodules for Cognitive, Evolution, World, Economics, and IdentitySystem using a clearly defined, test-driven development workflow. Each submodule follows the same pattern:
 	•	Define an embedded schema
-	•	Integrate it into JidoCharacter
+	•	Integrate it into Jido.Character
 	•	Write unit tests and TDD steps
 	•	Confirm immutability and multi-adapter persistence
 

@@ -1,4 +1,4 @@
-defmodule JidoCharacter.Identity do
+defmodule Jido.Character.Identity do
   @moduledoc """
   Identity schema defining core identity attributes and validation rules.
   """
@@ -6,11 +6,10 @@ defmodule JidoCharacter.Identity do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias JidoCharacter.Identity.{Base, Style, Profile}
-  alias JidoCharacter
+  alias Jido.Character.Identity.{Base, Style, Profile}
 
-  @type character :: JidoCharacter.t()
-  @type error :: JidoCharacter.error()
+  @type character :: Jido.Character.t()
+  @type error :: Jido.Character.error()
 
   @derive Inspect
   @derive Jason.Encoder
@@ -58,31 +57,31 @@ defmodule JidoCharacter.Identity do
   @spec update_identity(character() | {:ok, character()}, map()) :: {:ok, character()} | error()
   def update_identity({:ok, character}, attrs), do: update_identity(character, attrs)
 
-  def update_identity(%JidoCharacter{} = character, attrs) when is_map(attrs) do
-    JidoCharacter.update(character, %{identity: attrs})
+  def update_identity(%Jido.Character{} = character, attrs) when is_map(attrs) do
+    Jido.Character.update(character, %{identity: attrs})
   end
 
   @doc "Updates the username"
   @spec set_username(character(), String.t()) :: {:ok, character()} | error()
-  def set_username(%JidoCharacter{} = character, username) do
+  def set_username(%Jido.Character{} = character, username) do
     update_identity(character, %{username: username})
   end
 
   @doc "Updates display name"
   @spec set_display_name(character(), String.t()) :: {:ok, character()} | error()
-  def set_display_name(%JidoCharacter{} = character, display_name) do
+  def set_display_name(%Jido.Character{} = character, display_name) do
     update_identity(character, %{display_name: display_name})
   end
 
   @doc "Updates avatar URL"
   @spec set_avatar_url(character(), String.t()) :: {:ok, character()} | error()
-  def set_avatar_url(%JidoCharacter{} = character, avatar_url) do
+  def set_avatar_url(%Jido.Character{} = character, avatar_url) do
     update_identity(character, %{avatar_url: avatar_url})
   end
 
   @doc "Updates interests list"
   @spec set_interests(character(), list(String.t())) :: {:ok, character()} | error()
-  def set_interests(%JidoCharacter{} = character, interests) when is_list(interests) do
+  def set_interests(%Jido.Character{} = character, interests) when is_list(interests) do
     update_identity(character, %{interests: interests})
   end
 
@@ -91,14 +90,14 @@ defmodule JidoCharacter.Identity do
   Returns error if adding would exceed the 10-item limit.
   """
   @spec add_interest(character(), String.t()) :: {:ok, character()} | error()
-  def add_interest(%JidoCharacter{} = character, interest) do
+  def add_interest(%Jido.Character{} = character, interest) do
     current_interests = get_interests(character)
 
     # Don't add if it would exceed 10 items
     if length(current_interests) >= 10 do
       # Create a changeset with nested error structure
       {:error,
-       JidoCharacter.changeset(character, %{
+       Jido.Character.changeset(character, %{
          identity: %{interests: List.duplicate("interest", 11)}
        })}
     else
@@ -112,7 +111,7 @@ defmodule JidoCharacter.Identity do
 
   @doc "Removes an interest from the list"
   @spec remove_interest(character(), String.t()) :: {:ok, character()} | error()
-  def remove_interest(%JidoCharacter{} = character, interest) do
+  def remove_interest(%Jido.Character{} = character, interest) do
     current_interests = get_interests(character)
     updated_interests = Enum.reject(current_interests, &(&1 == interest))
     set_interests(character, updated_interests)
@@ -120,27 +119,27 @@ defmodule JidoCharacter.Identity do
 
   @doc "Gets the username"
   @spec get_username(character()) :: String.t() | nil
-  def get_username(%JidoCharacter{identity: %{username: username}}), do: username
+  def get_username(%Jido.Character{identity: %{username: username}}), do: username
 
   @doc "Gets the display name"
   @spec get_display_name(character()) :: String.t() | nil
-  def get_display_name(%JidoCharacter{identity: %{display_name: display_name}}), do: display_name
+  def get_display_name(%Jido.Character{identity: %{display_name: display_name}}), do: display_name
 
   @doc "Gets the avatar URL"
   @spec get_avatar_url(character()) :: String.t() | nil
-  def get_avatar_url(%JidoCharacter{identity: %{avatar_url: avatar_url}}), do: avatar_url
+  def get_avatar_url(%Jido.Character{identity: %{avatar_url: avatar_url}}), do: avatar_url
 
   @doc "Gets the interests list"
   @spec get_interests(character()) :: list(String.t())
-  def get_interests(%JidoCharacter{identity: %{interests: interests}}) when is_list(interests),
+  def get_interests(%Jido.Character{identity: %{interests: interests}}) when is_list(interests),
     do: interests
 
   def get_interests(_), do: []
 end
 
-defimpl JidoCharacter.Composer, for: JidoCharacter.Identity do
-  import JidoCharacter.Helpers
-  alias JidoCharacter.Identity
+defimpl Jido.Character.Composer, for: Jido.Character.Identity do
+  import Jido.Character.Helpers
+  alias Jido.Character.Identity
 
   def compose(%Identity{base: base, style: style, profile: profile}, _opts) do
     profile_text = profile_to_text(profile)

@@ -1,4 +1,4 @@
-defmodule JidoCharacter.World.Cultural do
+defmodule Jido.Character.World.Cultural do
   use TypedEctoSchema
   import Ecto.Changeset
 

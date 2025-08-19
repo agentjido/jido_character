@@ -1,8 +1,8 @@
-defmodule JidoCharacter.SoulScript.Personality.RelationshipTest do
+defmodule Jido.Character.SoulScript.Personality.RelationshipTest do
   use ExUnit.Case
-  doctest JidoCharacter
+  doctest Jido.Character
 
-  alias JidoCharacter.SoulScript.Personality.Relationship
+  alias Jido.Character.SoulScript.Personality.Relationship
 
   describe "relationship validation" do
     test "creates a valid relationship with required fields" do

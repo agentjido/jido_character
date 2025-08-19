@@ -1,4 +1,4 @@
-defmodule JidoCharacter.Identity.Base do
+defmodule Jido.Character.Identity.Base do
   @moduledoc """
   Core, unchanging identity attributes that form the foundation of a character's identity.
   """

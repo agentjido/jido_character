@@ -1,4 +1,4 @@
-defmodule JidoCharacter.Personality.Narrative do
+defmodule Jido.Character.Personality.Narrative do
   @moduledoc """
   Represents the character's backstory, thematic role, and story-based context
   that doesn't frequently change.

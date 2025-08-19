@@ -1,4 +1,4 @@
-defmodule JidoCharacter.Cognitive.Emotional do
+defmodule Jido.Character.Cognitive.Emotional do
   use TypedEctoSchema
   import Ecto.Changeset
 

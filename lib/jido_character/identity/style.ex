@@ -1,4 +1,4 @@
-defmodule JidoCharacter.Identity.Style do
+defmodule Jido.Character.Identity.Style do
   @moduledoc """
   Default expression rules and preferred communication style for the character.
   """

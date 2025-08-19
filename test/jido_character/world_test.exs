@@ -1,6 +1,6 @@
-defmodule JidoCharacter.WorldTest do
+defmodule Jido.Character.WorldTest do
   use ExUnit.Case, async: true
-  alias JidoCharacter.World
+  alias Jido.Character.World
 
   describe "world operations" do
     setup do

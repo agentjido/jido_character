@@ -1,8 +1,8 @@
-defmodule JidoCharacter.World do
+defmodule Jido.Character.World do
   use TypedEctoSchema
   import Ecto.Changeset
 
-  alias JidoCharacter.World.{Context, Social, Cultural}
+  alias Jido.Character.World.{Context, Social, Cultural}
 
   typed_embedded_schema do
     embeds_one(:context, Context, on_replace: :update)

@@ -1,13 +1,13 @@
-defmodule JidoCharacter.SoulScriptTest do
+defmodule Jido.Character.SoulScriptTest do
   use ExUnit.Case
-  doctest JidoCharacter
+  doctest Jido.Character
 
-  alias JidoCharacter.SoulScript.Root, as: SoulScriptRoot
+  alias Jido.Character.SoulScript.Root, as: SoulScriptRoot
 
   describe "SoulScript core structure" do
     test "creates a valid character with basic SoulScript fields" do
       changeset =
-        JidoCharacter.changeset(%JidoCharacter{}, %{
+        Jido.Character.changeset(%Jido.Character{}, %{
           id: "char-1",
           soulscript: %{
             version: "1.0",
@@ -130,7 +130,7 @@ defmodule JidoCharacter.SoulScriptTest do
 
     test "validates trait strength constraints" do
       changeset =
-        JidoCharacter.changeset(%JidoCharacter{}, %{
+        Jido.Character.changeset(%Jido.Character{}, %{
           id: "char-1",
           soulscript: %{
             version: "1.0",

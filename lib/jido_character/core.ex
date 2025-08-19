@@ -1,21 +1,20 @@
-defmodule JidoCharacter.Core do
+defmodule Jido.Character.Core do
   @moduledoc """
-  Core implementation of JidoCharacter operations.
+  Core implementation of Jido.Character operations.
   Handles CRUD and utility functions while maintaining persistence.
   """
 
-  alias JidoCharacter
-  alias JidoCharacter.Composer
+  alias Jido.Character.Composer
 
   @persist_adapter Application.compile_env(
                      :jido_character,
                      :persist_adapter,
-                     JidoCharacter.Persistence.Memory
+                     Jido.Character.Persistence.Memory
                    )
 
-  @type character :: JidoCharacter.t()
-  @type changeset :: JidoCharacter.changeset()
-  @type error :: JidoCharacter.error()
+  @type character :: Jido.Character.t()
+  @type changeset :: Jido.Character.changeset()
+  @type error :: Jido.Character.error()
 
   @doc "Creates a new character with optional ID"
   @spec new(String.t() | nil) :: {:ok, character()} | error()
@@ -24,12 +23,12 @@ defmodule JidoCharacter.Core do
     Process.sleep(1)
     now = DateTime.utc_now()
 
-    JidoCharacter.template(%{
+    Jido.Character.template(%{
       id: id,
       created_at: now,
       updated_at: now
     })
-    |> JidoCharacter.changeset(%{})
+    |> Jido.Character.changeset(%{})
     |> commit_changes()
   end
 
@@ -39,7 +38,7 @@ defmodule JidoCharacter.Core do
 
   @doc "Updates a character with new attributes"
   @spec update(character(), map()) :: {:ok, character()} | error()
-  def update(%JidoCharacter{} = character, attrs) when is_map(attrs) do
+  def update(%Jido.Character{} = character, attrs) when is_map(attrs) do
     # Ensure we get a fresh timestamp that's greater than the current one
     Process.sleep(1)
     new_timestamp = DateTime.utc_now()
@@ -47,7 +46,7 @@ defmodule JidoCharacter.Core do
     attrs = Map.put(attrs, :updated_at, new_timestamp)
 
     character
-    |> JidoCharacter.changeset(attrs)
+    |> Jido.Character.changeset(attrs)
     |> commit_changes()
   end
 
@@ -57,7 +56,7 @@ defmodule JidoCharacter.Core do
 
   @doc "Creates a deep copy with a new ID"
   @spec clone(character(), String.t()) :: {:ok, character()} | error()
-  def clone(%JidoCharacter{} = character, new_id) do
+  def clone(%Jido.Character{} = character, new_id) do
     attrs = %{
       id: new_id,
       created_at: DateTime.utc_now(),
@@ -67,15 +66,15 @@ defmodule JidoCharacter.Core do
       soulscript: character.soulscript |> Map.from_struct()
     }
 
-    JidoCharacter.template(attrs)
-    |> JidoCharacter.changeset(%{})
+    Jido.Character.template(attrs)
+    |> Jido.Character.changeset(%{})
     |> commit_changes()
   end
 
   @doc "Validates a character without persistence"
   @spec validate(character()) :: :ok | {:error, changeset()}
-  def validate(%JidoCharacter{} = character) do
-    case JidoCharacter.changeset(character, %{}) do
+  def validate(%Jido.Character{} = character) do
+    case Jido.Character.changeset(character, %{}) do
       %{valid?: true} -> :ok
       changeset -> {:error, changeset}
     end
@@ -83,7 +82,7 @@ defmodule JidoCharacter.Core do
 
   @doc "Converts character to JSON string"
   @spec to_json(character()) :: {:ok, String.t()} | {:error, term()}
-  def to_json(%JidoCharacter{} = character) do
+  def to_json(%Jido.Character{} = character) do
     try do
       {:ok, Jason.encode!(character)}
     rescue
@@ -97,10 +96,10 @@ defmodule JidoCharacter.Core do
          # Convert string keys to atoms for embedded schemas
          decoded <- atomize_keys(decoded),
          # Create a new template with the decoded data
-         character <- JidoCharacter.template(),
+         character <- Jido.Character.template(),
          # Apply changes through changeset
          changeset <-
-           JidoCharacter.changeset(character, %{
+           Jido.Character.changeset(character, %{
              id: decoded[:id],
              created_at: parse_datetime(decoded[:created_at]),
              updated_at: parse_datetime(decoded[:updated_at]),
@@ -116,7 +115,7 @@ defmodule JidoCharacter.Core do
     end
   end
 
-  def compose(%JidoCharacter{} = character, opts \\ []) do
+  def compose(%Jido.Character{} = character, opts \\ []) do
     with {:ok, identity} <- Composer.compose(character.identity, opts) do
       #  {:ok, personality} <- Composer.compose(character.personality, opts) do
       composed = """

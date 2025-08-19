@@ -1,7 +1,7 @@
-# defmodule JidoCharacter.PersonalityTest do
+# defmodule Jido.Character.PersonalityTest do
 #   use ExUnit.Case
-#   alias JidoCharacter.Personality
-#   alias JidoCharacter.Personality.{Traits, Narrative, Behavior, Expression}
+#   alias Jido.Character.Personality
+#   alias Jido.Character.Personality.{Traits, Narrative, Behavior, Expression}
 
 #   describe "new/1" do
 #     test "creates a new personality with default values" do

@@ -1,4 +1,4 @@
-defmodule JidoCharacter.Personality.Expression do
+defmodule Jido.Character.Personality.Expression do
   @moduledoc """
   Immediate outward manifestation of personality, influenced by style,
   context, and emotional state.

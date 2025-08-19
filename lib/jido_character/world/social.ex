@@ -1,4 +1,4 @@
-defmodule JidoCharacter.World.Social do
+defmodule Jido.Character.World.Social do
   use TypedEctoSchema
   import Ecto.Changeset
 

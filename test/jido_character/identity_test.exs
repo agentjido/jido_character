@@ -1,6 +1,6 @@
-defmodule JidoCharacter.IdentityTest do
+defmodule Jido.Character.IdentityTest do
   use ExUnit.Case, async: true
-  alias JidoCharacter.Identity
+  alias Jido.Character.Identity
 
   setup do
     {:ok, character} = create_character_with_identity()
@@ -9,7 +9,7 @@ defmodule JidoCharacter.IdentityTest do
 
   # Improve the helper function
   defp create_character_with_identity do
-    {:ok, character} = JidoCharacter.new()
+    {:ok, character} = Jido.Character.new()
 
     Identity.update_identity(character, %{
       username: "test_user123",
@@ -134,7 +134,7 @@ defmodule JidoCharacter.IdentityTest do
     end
 
     test "returns an empty list for character without interests" do
-      {:ok, character_without_interests} = JidoCharacter.new()
+      {:ok, character_without_interests} = Jido.Character.new()
       assert Identity.get_interests(character_without_interests) == []
     end
   end

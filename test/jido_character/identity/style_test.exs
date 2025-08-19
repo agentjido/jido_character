@@ -1,6 +1,6 @@
-defmodule JidoCharacter.Identity.StyleTest do
+defmodule Jido.Character.Identity.StyleTest do
   use ExUnit.Case, async: true
-  alias JidoCharacter.Identity.Style
+  alias Jido.Character.Identity.Style
 
   describe "changeset/2" do
     test "validates required fields" do

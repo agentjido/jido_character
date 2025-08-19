@@ -1,4 +1,4 @@
-defmodule JidoCharacter.Personality.Traits do
+defmodule Jido.Character.Personality.Traits do
   @moduledoc """
   Core personality attributes or temperament indicators that form the baseline
   template for behavior and expression.

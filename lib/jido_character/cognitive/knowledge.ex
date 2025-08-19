@@ -1,4 +1,4 @@
-defmodule JidoCharacter.Cognitive.Knowledge do
+defmodule Jido.Character.Cognitive.Knowledge do
   use TypedEctoSchema
   import Ecto.Changeset
 

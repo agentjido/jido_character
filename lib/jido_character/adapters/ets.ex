@@ -1,11 +1,10 @@
-defmodule JidoCharacter.Persistence.ETS do
+defmodule Jido.Character.Persistence.ETS do
   @moduledoc """
-  ETS-based persistence adapter for JidoCharacter storage using binary term serialization.
+  ETS-based persistence adapter for Jido.Character storage using binary term serialization.
   """
 
-  @behaviour JidoCharacter.Persistence.Adapter
+  @behaviour Jido.Character.Persistence.Adapter
 
-  alias JidoCharacter
   require Logger
 
   @table_name :jido_characters
@@ -25,7 +24,7 @@ defmodule JidoCharacter.Persistence.ETS do
   end
 
   @impl true
-  def save(%JidoCharacter{} = character) do
+  def save(%Jido.Character{} = character) do
     try do
       true = :ets.insert(@table_name, {character.id, character})
       {:ok, character}

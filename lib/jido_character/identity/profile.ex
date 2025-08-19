@@ -1,4 +1,4 @@
-defmodule JidoCharacter.Identity.Profile do
+defmodule Jido.Character.Identity.Profile do
   @moduledoc """
   Public-facing information that may be updated over time.
   """

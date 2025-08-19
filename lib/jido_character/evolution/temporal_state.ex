@@ -1,4 +1,4 @@
-defmodule JidoCharacter.Evolution.TemporalState do
+defmodule Jido.Character.Evolution.TemporalState do
   use TypedEctoSchema
   import Ecto.Changeset
 

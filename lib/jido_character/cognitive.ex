@@ -1,12 +1,12 @@
-defmodule JidoCharacter.Cognitive do
+defmodule Jido.Character.Cognitive do
   use TypedEctoSchema
   import Ecto.Changeset
 
   @derive {Jason.Encoder, only: [:memories, :knowledge, :emotional]}
   typed_embedded_schema do
-    embeds_many(:memories, JidoCharacter.Cognitive.Memory, on_replace: :delete)
-    embeds_many(:knowledge, JidoCharacter.Cognitive.Knowledge, on_replace: :delete)
-    embeds_one(:emotional, JidoCharacter.Cognitive.Emotional, on_replace: :update)
+    embeds_many(:memories, Jido.Character.Cognitive.Memory, on_replace: :delete)
+    embeds_many(:knowledge, Jido.Character.Cognitive.Knowledge, on_replace: :delete)
+    embeds_one(:emotional, Jido.Character.Cognitive.Emotional, on_replace: :update)
   end
 
   def changeset(cognitive, attrs) when is_map(attrs) do

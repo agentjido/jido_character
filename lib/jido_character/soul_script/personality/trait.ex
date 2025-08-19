@@ -1,4 +1,4 @@
-defmodule JidoCharacter.SoulScript.Personality.Trait do
+defmodule Jido.Character.SoulScript.Personality.Trait do
   use TypedEctoSchema
   import Ecto.Changeset
 

@@ -1,4 +1,4 @@
-defmodule JidoCharacter.Evolution.History do
+defmodule Jido.Character.Evolution.History do
   use TypedEctoSchema
   import Ecto.Changeset
 

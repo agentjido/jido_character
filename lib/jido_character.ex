@@ -1,4 +1,4 @@
-defmodule JidoCharacter do
+defmodule Jido.Character do
   use TypedEctoSchema
   import Ecto.Changeset
 
@@ -7,23 +7,23 @@ defmodule JidoCharacter do
   typed_embedded_schema do
     # Existing JIDO fields
     field(:id, :string)
-    embeds_one(:identity, JidoCharacter.Identity, on_replace: :update)
-    embeds_one(:personality, JidoCharacter.Personality, on_replace: :update)
+    embeds_one(:identity, Jido.Character.Identity, on_replace: :update)
+    embeds_one(:personality, Jido.Character.Personality, on_replace: :update)
 
     # SoulScript block
-    embeds_one(:soulscript, JidoCharacter.SoulScript.Root, on_replace: :update)
+    embeds_one(:soulscript, Jido.Character.SoulScript.Root, on_replace: :update)
 
     # Cognitive module
-    embeds_one(:cognitive, JidoCharacter.Cognitive, on_replace: :update)
+    embeds_one(:cognitive, Jido.Character.Cognitive, on_replace: :update)
 
     # Evolution module
-    embeds_one(:evolution, JidoCharacter.Evolution, on_replace: :update)
+    embeds_one(:evolution, Jido.Character.Evolution, on_replace: :update)
 
     # These will be implemented in future iterations
-    # embeds_one :personality_extras, JidoCharacter.PersonalityExtras
-    # embeds_one :world, JidoCharacter.World
-    # embeds_one :economics, JidoCharacter.Economics
-    # embeds_one :identity_system, JidoCharacter.IdentitySystem
+    # embeds_one :personality_extras, Jido.Character.PersonalityExtras
+    # embeds_one :world, Jido.Character.World
+    # embeds_one :economics, Jido.Character.Economics
+    # embeds_one :identity_system, Jido.Character.IdentitySystem
 
     field(:created_at, :utc_datetime_usec)
     field(:updated_at, :utc_datetime_usec)
@@ -41,14 +41,14 @@ defmodule JidoCharacter do
   end
 
   # Public API delegates to Core
-  defdelegate new(id \\ nil), to: JidoCharacter.Core
-  defdelegate get(id), to: JidoCharacter.Core
-  defdelegate update(character, attrs), to: JidoCharacter.Core
-  defdelegate delete(id), to: JidoCharacter.Core
-  defdelegate clone(character, new_id), to: JidoCharacter.Core
-  defdelegate validate(character), to: JidoCharacter.Core
-  defdelegate to_json(character), to: JidoCharacter.Core
-  defdelegate from_json(json), to: JidoCharacter.Core
+  defdelegate new(id \\ nil), to: Jido.Character.Core
+  defdelegate get(id), to: Jido.Character.Core
+  defdelegate update(character, attrs), to: Jido.Character.Core
+  defdelegate delete(id), to: Jido.Character.Core
+  defdelegate clone(character, new_id), to: Jido.Character.Core
+  defdelegate validate(character), to: Jido.Character.Core
+  defdelegate to_json(character), to: Jido.Character.Core
+  defdelegate from_json(json), to: Jido.Character.Core
 
   # Template for creating new characters
   def template(attrs \\ %{}) do
@@ -58,33 +58,33 @@ defmodule JidoCharacter do
       id: nil,
       created_at: now,
       updated_at: now,
-      identity: JidoCharacter.Identity.template(),
-      personality: JidoCharacter.Personality.template(),
-      cognitive: %JidoCharacter.Cognitive{
+      identity: Jido.Character.Identity.template(),
+      personality: Jido.Character.Personality.template(),
+      cognitive: %Jido.Character.Cognitive{
         memories: [],
         knowledge: [],
-        emotional: %JidoCharacter.Cognitive.Emotional{
+        emotional: %Jido.Character.Cognitive.Emotional{
           mood: "neutral",
           intensity: 0.5
         }
       },
-      evolution: %JidoCharacter.Evolution{
-        temporal_state: %JidoCharacter.Evolution.TemporalState{
+      evolution: %Jido.Character.Evolution{
+        temporal_state: %Jido.Character.Evolution.TemporalState{
           age: 0,
           maturity: 0.0,
           stage: "initial",
           last_evolved_at: now
         },
-        growth_system: %JidoCharacter.Evolution.GrowthSystem{},
+        growth_system: %Jido.Character.Evolution.GrowthSystem{},
         history: []
       },
-      soulscript: %JidoCharacter.SoulScript.Root{
+      soulscript: %Jido.Character.SoulScript.Root{
         version: "1.0",
         id: UUID.uuid4(),
-        entity: %JidoCharacter.SoulScript.Entity{
+        entity: %Jido.Character.SoulScript.Entity{
           form: "human"
         },
-        personality: %JidoCharacter.SoulScript.Personality{
+        personality: %Jido.Character.SoulScript.Personality{
           name: "New Character"
         }
       }

@@ -1,4 +1,4 @@
-defmodule JidoCharacter.Personality.Behavior do
+defmodule Jido.Character.Personality.Behavior do
   @moduledoc """
   General patterns and response frameworks that adapt based on traits,
   current context, and emotional state.

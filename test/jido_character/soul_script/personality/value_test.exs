@@ -1,8 +1,8 @@
-defmodule JidoCharacter.SoulScript.Personality.ValueTest do
+defmodule Jido.Character.SoulScript.Personality.ValueTest do
   use ExUnit.Case
-  doctest JidoCharacter
+  doctest Jido.Character
 
-  alias JidoCharacter.SoulScript.Personality.Value
+  alias Jido.Character.SoulScript.Personality.Value
 
   describe "value validation" do
     test "creates a valid value with required fields" do

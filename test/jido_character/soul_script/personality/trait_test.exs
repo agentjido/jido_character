@@ -1,8 +1,8 @@
-defmodule JidoCharacter.SoulScript.Personality.TraitTest do
+defmodule Jido.Character.SoulScript.Personality.TraitTest do
   use ExUnit.Case
-  doctest JidoCharacter
+  doctest Jido.Character
 
-  alias JidoCharacter.SoulScript.Personality.Trait
+  alias Jido.Character.SoulScript.Personality.Trait
 
   describe "trait validation" do
     test "creates a valid trait with required fields" do

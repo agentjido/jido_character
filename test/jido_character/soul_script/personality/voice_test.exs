@@ -1,8 +1,8 @@
-defmodule JidoCharacter.SoulScript.Personality.VoiceTest do
+defmodule Jido.Character.SoulScript.Personality.VoiceTest do
   use ExUnit.Case
-  doctest JidoCharacter
+  doctest Jido.Character
 
-  alias JidoCharacter.SoulScript.Personality.Voice
+  alias Jido.Character.SoulScript.Personality.Voice
 
   describe "voice validation" do
     test "creates a valid voice with required fields" do

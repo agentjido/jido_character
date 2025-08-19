@@ -1,8 +1,8 @@
-defmodule JidoCharacter.Evolution do
+defmodule Jido.Character.Evolution do
   use TypedEctoSchema
   import Ecto.Changeset
 
-  alias JidoCharacter.Evolution.{TemporalState, GrowthSystem, History}
+  alias Jido.Character.Evolution.{TemporalState, GrowthSystem, History}
 
   @derive {Jason.Encoder, except: []}
   @primary_key false

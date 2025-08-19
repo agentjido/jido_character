@@ -1,7 +1,7 @@
-defmodule JidoCharacter.CognitiveTest do
+defmodule Jido.Character.CognitiveTest do
   use ExUnit.Case, async: true
-  alias JidoCharacter.Cognitive
-  alias JidoCharacter.Cognitive.{Memory, Knowledge, Emotional}
+  alias Jido.Character.Cognitive
+  alias Jido.Character.Cognitive.{Memory, Knowledge, Emotional}
 
   describe "cognitive operations" do
     setup do

@@ -18,11 +18,11 @@ end
 ## Usage
 
 ```elixir
-character = JidoCharacter.new()
+character = Jido.Character.new()
 
-character = JidoCharacter.update(character, %{name: "John Doe"})
+character = Jido.Character.update(character, %{name: "John Doe"})
 
-character = JidoCharacter.update(character, %{identity: %{username: "johndoe"}})
+character = Jido.Character.update(character, %{identity: %{username: "johndoe"}})
 ```
 
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)

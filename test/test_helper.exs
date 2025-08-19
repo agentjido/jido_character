@@ -1,7 +1,7 @@
 ExUnit.start()
 
 # Start the Memory persistence adapter once for all tests
-{:ok, _} = JidoCharacter.Persistence.Memory.start_link([])
+{:ok, _} = Jido.Character.Persistence.Memory.start_link([])
 
 # Configure ExUnit
 ExUnit.configure(

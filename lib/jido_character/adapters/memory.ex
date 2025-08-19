@@ -1,11 +1,10 @@
-defmodule JidoCharacter.Persistence.Memory do
+defmodule Jido.Character.Persistence.Memory do
   @moduledoc """
-  In-memory persistence adapter for JidoCharacter storage.
+  In-memory persistence adapter for Jido.Character storage.
   """
 
-  @behaviour JidoCharacter.Persistence.Adapter
+  @behaviour Jido.Character.Persistence.Adapter
 
-  alias JidoCharacter
   require Logger
 
   # Agent to store the characters in memory
@@ -42,8 +41,8 @@ defmodule JidoCharacter.Persistence.Memory do
   @doc """
   Saves a character to the in-memory storage.
   """
-  @spec save(JidoCharacter.t()) :: {:ok, JidoCharacter.t()} | {:error, term()}
-  def save(%JidoCharacter{} = character) do
+  @spec save(Jido.Character.t()) :: {:ok, Jido.Character.t()} | {:error, term()}
+  def save(%Jido.Character{} = character) do
     try do
       Agent.update(@agent_name, fn state ->
         Map.put(state, character.id, :erlang.term_to_binary(character))
@@ -61,7 +60,7 @@ defmodule JidoCharacter.Persistence.Memory do
   @doc """
   Retrieves a character from the in-memory storage by its ID.
   """
-  @spec get(String.t()) :: {:ok, JidoCharacter.t()} | {:error, :not_found}
+  @spec get(String.t()) :: {:ok, Jido.Character.t()} | {:error, :not_found}
   def get(id) when is_binary(id) do
     case Agent.get(@agent_name, fn state -> Map.get(state, id) end) do
       nil ->

@@ -1,6 +1,6 @@
-defmodule JidoCharacter.Identity.ProfileTest do
+defmodule Jido.Character.Identity.ProfileTest do
   use ExUnit.Case, async: true
-  alias JidoCharacter.Identity.Profile
+  alias Jido.Character.Identity.Profile
 
   describe "changeset/2" do
     test "validates status message length" do

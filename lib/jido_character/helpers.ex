@@ -1,6 +1,6 @@
-defmodule JidoCharacter.Helpers do
+defmodule Jido.Character.Helpers do
   @moduledoc """
-  Common helper functions for working with JidoCharacter structs.
+  Common helper functions for working with Jido.Character structs.
   """
 
   import Ecto.Changeset

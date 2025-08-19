@@ -1,6 +1,6 @@
-defmodule JidoCharacter.EvolutionTest do
+defmodule Jido.Character.EvolutionTest do
   use ExUnit.Case, async: true
-  alias JidoCharacter.Evolution
+  alias Jido.Character.Evolution
 
   describe "evolution operations" do
     setup do

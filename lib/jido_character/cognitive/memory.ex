@@ -1,4 +1,4 @@
-defmodule JidoCharacter.Cognitive.Memory do
+defmodule Jido.Character.Cognitive.Memory do
   use TypedEctoSchema
   import Ecto.Changeset
 

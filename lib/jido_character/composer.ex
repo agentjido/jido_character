@@ -1,4 +1,4 @@
-defprotocol JidoCharacter.Composer do
+defprotocol Jido.Character.Composer do
   @moduledoc """
   Protocol for composing character data into string format for LLM prompts.
   Each schema module implements its own composition logic while maintaining

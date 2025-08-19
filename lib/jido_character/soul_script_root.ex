@@ -1,4 +1,4 @@
-defmodule JidoCharacter.SoulScriptRoot do
+defmodule Jido.Character.SoulScriptRoot do
   use TypedEctoSchema
   import Ecto.Changeset
 
@@ -7,8 +7,8 @@ defmodule JidoCharacter.SoulScriptRoot do
     field(:version, :string)
     field(:id, :string)
 
-    embeds_one(:entity, JidoCharacter.SoulScript.Entity)
-    embeds_one(:personality, JidoCharacter.SoulScript.Personality)
+    embeds_one(:entity, Jido.Character.SoulScript.Entity)
+    embeds_one(:personality, Jido.Character.SoulScript.Personality)
   end
 
   def changeset(soul_script, attrs) do

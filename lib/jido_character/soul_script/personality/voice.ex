@@ -1,4 +1,4 @@
-defmodule JidoCharacter.SoulScript.Personality.Voice do
+defmodule Jido.Character.SoulScript.Personality.Voice do
   use TypedEctoSchema
   import Ecto.Changeset
 

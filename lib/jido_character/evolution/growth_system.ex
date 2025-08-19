@@ -1,4 +1,4 @@
-defmodule JidoCharacter.Evolution.GrowthSystem do
+defmodule Jido.Character.Evolution.GrowthSystem do
   use TypedEctoSchema
   import Ecto.Changeset
 

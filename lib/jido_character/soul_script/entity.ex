@@ -1,4 +1,4 @@
-defmodule JidoCharacter.SoulScript.Entity do
+defmodule Jido.Character.SoulScript.Entity do
   use TypedEctoSchema
   import Ecto.Changeset
 

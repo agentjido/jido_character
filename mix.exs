@@ -1,4 +1,4 @@
-defmodule JidoCharacter.MixProject do
+defmodule Jido.Character.MixProject do
   use Mix.Project
 
   def project do

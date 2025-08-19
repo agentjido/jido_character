@@ -1,4 +1,4 @@
-defmodule JidoCharacter.Macros do
+defmodule Jido.Character.Macros do
   @moduledoc """
   Helpful macros for common character operations.
   """
@@ -8,11 +8,11 @@ defmodule JidoCharacter.Macros do
   """
   defmacro def_crud(schema_name) do
     quote do
-      def unquote(:"update_#{schema_name}")(%JidoCharacter{} = character, attrs) do
-        JidoCharacter.update(character, %{unquote(schema_name) => attrs})
+      def unquote(:"update_#{schema_name}")(%Jido.Character{} = character, attrs) do
+        Jido.Character.update(character, %{unquote(schema_name) => attrs})
       end
 
-      def unquote(:"get_#{schema_name}")(%JidoCharacter{} = character) do
+      def unquote(:"get_#{schema_name}")(%Jido.Character{} = character) do
         Map.get(character, unquote(schema_name))
       end
     end
@@ -23,7 +23,7 @@ defmodule JidoCharacter.Macros do
   """
   defmacro def_field_accessor(field_name, default \\ nil) do
     quote do
-      def unquote(:"get_#{field_name}")(%JidoCharacter{} = character) do
+      def unquote(:"get_#{field_name}")(%Jido.Character{} = character) do
         Map.get(character, unquote(field_name), unquote(default))
       end
     end
