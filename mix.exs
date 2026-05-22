@@ -115,9 +115,9 @@ defmodule Jido.Character.MixProject do
   defp deps do
     [
       # Runtime dependencies
-      {:zoi, "~> 0.14"},
+      {:zoi, "~> 0.18"},
       {:jason, "~> 1.4"},
-      {:req_llm, "~> 1.2"},
+      {:req_llm, "~> 1.12"},
       {:uniq, "~> 0.6"},
 
       # Dev/Test dependencies
