@@ -1,8 +1,12 @@
 # Jido Character
 
 [![Hex.pm](https://img.shields.io/hexpm/v/jido_character.svg)](https://hex.pm/packages/jido_character)
-[![Documentation](https://img.shields.io/badge/hex-docs-blue.svg)](https://hexdocs.pm/jido_character)
+[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/jido_character/)
+[![CI](https://github.com/agentjido/jido_character/actions/workflows/ci.yml/badge.svg)](https://github.com/agentjido/jido_character/actions/workflows/ci.yml)
 [![License](https://img.shields.io/hexpm/l/jido_character.svg)](https://github.com/agentjido/jido_character/blob/main/LICENSE)
+[![Website](https://img.shields.io/badge/website-jido.run-0f172a.svg)](https://jido.run)
+[![Ecosystem](https://img.shields.io/badge/ecosystem-jido.run-0ea5e9.svg)](https://jido.run/ecosystem)
+[![Discord](https://img.shields.io/badge/discord-join-5865F2.svg?logo=discord&logoColor=white)](https://jido.run/discord)
 
 Extensible character definition and context rendering for AI agents. Define composable personalities with identity, voice, memory, and knowledge—then render directly to LLM prompts via [ReqLLM](https://github.com/agentjido/req_llm).
 
