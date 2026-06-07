@@ -110,3 +110,7 @@ end
 - Prefer pattern matching over conditionals
 - Use `{:ok, value}` / `{:error, reason}` tuples consistently
 - Deep merge for nested map updates
+
+## Release Hygiene
+
+- Do not modify `CHANGELOG.md`; release notes are generated from Git history during release, so keep changes focused on proper Conventional Commits.
