@@ -485,6 +485,10 @@ mix docs
 - **Phase 4** 🔜 Polish — Guides, property-based tests, examples
 - **Phase 5** 🔜 Release — Hex.pm publication
 
+## Local Documentation
+
+Run `mix docs` to generate HTML and Markdown documentation in `doc/`, including Markdown pages and `llms.txt`.
+
 ## License
 
 Copyright 2025 Mike Hostetler
