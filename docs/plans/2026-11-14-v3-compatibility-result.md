@@ -63,3 +63,15 @@ Workspace, then update and check Jidoka dependency pins. Character and Harness
 can release independently after their shared dependencies are available.
 Migrate Hancho before claiming it supports the new Harness candidate. No
 registry publication, release, merge, or PR was part of this work.
+
+## Static config audit
+
+Credo was rerun from the primary source directory with the isolated dependency
+cache: `mix credo --min-priority higher --config-file .credo.exs`. It passes
+but selects **zero** checks under the repository's existing CI priority.
+A supplementary `mix credo --strict --config-file .credo.exs` ran all 18
+configured checks and found 6 pre-existing readability items: missing docs in
+three test support modules and alias order in three unchanged source/test
+files. No Character source or test body changed in this task. Full strict
+lint is not a passing gate; the declared quality command passes. The shared
+`/private/tmp/.credo.exs` was not changed.
