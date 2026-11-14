@@ -504,3 +504,15 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+
+## Consolidated Jido v3
+
+Character uses Zoi `~> 0.19.0` and ReqLLM `~> 1.30`. This is a dependency
+migration from the earlier Zoi 0.18 graph. Character remains a standalone
+library. A host can pass `Jido.Character.to_context(character)` to
+`Jido.AI.Context.new/1` in consolidated Jido. No model call is required.
+Do not add the separate legacy `jido_ai`, `jido_action`, or `jido_signal`
+packages to that graph.
+
+The [v3 consumer fixture](integration/jido_v3/README.md) checks this boundary
+with a pinned core revision and a shared dependency lock.

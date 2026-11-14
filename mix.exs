@@ -51,7 +51,8 @@ defmodule Jido.Character.MixProject do
         "GitHub" => @source_url,
         "Website" => "https://agentjido.xyz"
       },
-      files: ~w(lib .formatter.exs mix.exs README.md LICENSE CHANGELOG.md CONTRIBUTING.md AGENTS.md)
+      files:
+        ~w(lib integration/jido_v3/mix.exs integration/jido_v3/mix.lock integration/jido_v3/README.md integration/jido_v3/test .formatter.exs mix.exs README.md LICENSE CHANGELOG.md CONTRIBUTING.md AGENTS.md)
     ]
   end
 
@@ -115,9 +116,9 @@ defmodule Jido.Character.MixProject do
   defp deps do
     [
       # Runtime dependencies
-      {:zoi, "~> 0.18.11"},
+      {:zoi, "~> 0.19.0"},
       {:jason, "~> 1.4"},
-      {:req_llm, "~> 1.12"},
+      {:req_llm, "~> 1.30"},
       {:uniq, "~> 0.6"},
 
       # Dev/Test dependencies
